@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h1>My Posts</h1>
+<hr>
+
+<a href="{% url 'createpost' %}">Create Post</a>
+<hr>
+
+{% for post in posts %}
+    <p>@{{post.user.username}}<p>
+        <a href="{% url 'updatepost' post.id %}">Update</a> | <a href="{% url 'deletepost' post.id %}">Delete</a>
+    <h3><a href = "{% url 'postdetails' post.id %}">{{post.title}}</a></h3>
+    <img width="400px" height="500px" style="border:2px solid black;" src = "/media/{{post.post_image}}"/>
+
+    <hr>
+{% endfor %} 
+
+
+
+
+
+{% endblock %}
