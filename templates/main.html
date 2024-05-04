@@ -9,8 +9,27 @@
         <link rel="stylesheet" href="">
 
         <style>
-            .nav-bar{
+            .nav_links a, li {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 500;
+                color: black;
+                font-size: 16px;
+                text-decoration: none;
+                list-style: none;
+                display: inline-block;
+                padding: 0px 20px;
                 
+            }
+            .nav_links li a:hover {
+                color: #FC5713;
+
+            }
+            header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0px 10%;
+                box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.2);
             }
         </style>
 
@@ -19,10 +38,17 @@
         
         {% include "navbar.html" %}
 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif%}
+
         {% block content %}
         
         {% endblock %}
-        
-        <script src="" async defer></script>
+    
     </body>
 </html>
