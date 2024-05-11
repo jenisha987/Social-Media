@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,12 @@ from .forms import PostForm
 # Create your views here.
 
 def home(request):
-    posts = Post.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    # user = User.objects.filter(user__username__icontains=q)
+    posts = Post.objects.filter(Q(user__username__icontains=q) |
+                                Q(title__icontains=q) 
+                                )
+    # posts = Post.objects.all()
     context = {'posts':posts}
     return render(request, 'home.html', context)
 
@@ -108,4 +114,8 @@ def registerUser(request):
     return render(request, 'login_register.html', {'form':form})
 
 
-
+def profile(request, pk):
+    user = User.objects.get(id=pk)
+    posts = user.post_set.all()
+    context = {'user':user, 'posts':posts}
+    return render(request, 'profile.html', context)

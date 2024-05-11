@@ -10,9 +10,21 @@
     </nav>
 </header>
 
-{% if request.user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout</a>
-{% else %}
-    <a href="{% url 'login' %}">Login</a>
-{% endif %}
+<div class="page">
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'profile' request.user.id %}">@{{request.user}}</a>
+    {% endif %}
+</div>
+
+<form method="GET" action="{% url 'home' %}">
+    <input type="text" name="q" placeholder="Search.." />
+</form>
+
 <hr>

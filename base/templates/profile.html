@@ -23,13 +23,10 @@
     <div>
         {% for post in posts %}
         <a href="{% url 'profile' post.user.id %}"><p>@{{post.user.username}}</p></a>
-        <p>
-            {% if request.user == post.user %}
-            <a href="{% url 'updatepost' post.id %}">Update</a> |
-            <a href="{% url 'deletepost' post.id %}">Delete</a>
-            {% endif %}
-        </p>
-
+        {% if request.user == post.user %}
+        <a href="{% url 'updatepost' post.id %}">Update</a> |
+        <a href="{% url 'deletepost' post.id %}">Delete</a>
+        {% endif %}
         <h3><a href="{% url 'postdetails' post.id %}">{{post.title}}</a></h3>
         <img
             width="400px"
@@ -39,6 +36,7 @@
         />
 
         <hr />
+        
         {% endfor %}
     </div>
 </div>
