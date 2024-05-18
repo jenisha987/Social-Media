@@ -26,7 +26,7 @@ def postdetails(request, pk):
     postdetails = Post.objects.get(id=pk)
     context = {'postdetails':postdetails}
     return render(request, "postdetails.html", context)
-
+ 
 
 @login_required(login_url='login')
 def createPost(request):
